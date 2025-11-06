@@ -288,10 +288,10 @@ const USE_MOCK_DATA = true; // Mude para false quando configurar MongoDB
 ===================================================================== */
 function getDadosMock() {
     // Criar Restaurantes
-    const restaurante1 = new Restaurante('La Bella Pasta', 'Italiana', 5, 3);
-    restaurante1.adicionarPrato(new Prato('Carbonara', 'Massa com bacon, ovos e queijo parmesão', 45.90));
-    restaurante1.adicionarPrato(new Prato('Margherita', 'Pizza tradicional napolitana com manjericão fresco', 38.00));
-    restaurante1.adicionarPrato(new Prato('Tiramisu', 'Sobremesa italiana com café e mascarpone', 22.00));
+    const restaurante1 = new Restaurante('Burger King', 'Fast Food', 4, 2);
+    restaurante1.adicionarPrato(new Prato('Whopper Rodeio', 'Hambúrguer com carne grelhada, queijo, cebola crispy e molho barbecue', 28.90));
+    restaurante1.adicionarPrato(new Prato('Whopper', 'Hambúrguer com carne grelhada, queijo, alface, tomate e maionese', 24.90));
+    restaurante1.adicionarPrato(new Prato('Big King', 'Dois hambúrgueres, queijo, alface e molho especial', 26.90));
 
     const restaurante2 = new Restaurante('Sushi Master', 'Japonesa', 4, 3);
     restaurante2.adicionarPrato(new Prato('Combinado Especial', '30 peças variadas de sushi e sashimi', 89.90));
@@ -300,14 +300,14 @@ function getDadosMock() {
 
     // Criar Artistas
     const artista1 = new Artista('VMZ', 'Trap/Rap', 92);
-    artista1.adicionarMusica(new Musica('Raposa', '2:41', 'Raposa'));
-    artista1.adicionarMusica(new Musica('Não Foi Tudo em Vão', '3:15', 'ASTRO'));
-    artista1.adicionarMusica(new Musica('Mainstream', '2:53', 'Mainstream'));
+    artista1.adicionarMusica(new Musica('Segunda', '2:33', 'Segunda'));
+    artista1.adicionarMusica(new Musica('Redento', '2:45', 'Redento'));
+    artista1.adicionarMusica(new Musica('Sonhos Irreais', '3:12', 'ASTRO'));
 
     const artista2 = new Artista('BoyWithUke', 'Indie Pop/Alternative', 89);
-    artista2.adicionarMusica(new Musica('Toxic', '2:40', 'Serotonin Dreams'));
-    artista2.adicionarMusica(new Musica('IDGAF', '2:26', 'Serotonin Dreams'));
-    artista2.adicionarMusica(new Musica('Understand', '2:50', 'Lucid Dreams'));
+    artista2.adicionarMusica(new Musica('Ghost', '2:33', 'Serotonin Dreams'));
+    artista2.adicionarMusica(new Musica('Corduroy', '2:48', 'Lucid Dreams'));
+    artista2.adicionarMusica(new Musica('Petrichor (interlude)', '1:45', 'Lucid Dreams'));
 
     return {
         restaurantes: [restaurante1, restaurante2],

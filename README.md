@@ -154,13 +154,18 @@ http://localhost:8000
   "popularidade": 92,
   "musicas": [
     {
-      "titulo": "Raposa",
-      "duracao": "2:41",
-      "album": "Raposa"
+      "titulo": "Segunda",
+      "duracao": "2:33",
+      "album": "Segunda"
     },
     {
-      "titulo": "Não Foi Tudo em Vão",
-      "duracao": "3:15",
+      "titulo": "Redento",
+      "duracao": "2:45",
+      "album": "Redento"
+    },
+    {
+      "titulo": "Sonhos Irreais",
+      "duracao": "3:12",
       "album": "ASTRO"
     }
   ]
