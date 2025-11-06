@@ -539,8 +539,53 @@ function renderizarDados(dados) {
    - Usar async/defer no <script>
    - Usar DOMContentLoaded (mais profissional)
 ===================================================================== */
+
+/* =====================================================================
+   VERIFICAÇÃO DE AUTENTICAÇÃO
+===================================================================== */
+function verificarAutenticacao() {
+    const usuarioLogado = localStorage.getItem('usuarioLogado');
+    
+    if (!usuarioLogado) {
+        // Usuário não está logado, redireciona para login
+        window.location.href = 'login.html';
+        return false;
+    }
+    
+    // Exibir informações do usuário
+    const usuario = JSON.parse(usuarioLogado);
+    const userInfoDiv = document.getElementById('userInfo');
+    if (userInfoDiv) {
+        userInfoDiv.innerHTML = `👤 Bem-vindo(a), <strong>${usuario.nome}</strong>!`;
+    }
+    
+    return true;
+}
+
+/* =====================================================================
+   LOGOUT
+===================================================================== */
+function fazerLogout() {
+    if (confirm('Deseja realmente sair?')) {
+        localStorage.removeItem('usuarioLogado');
+        localStorage.removeItem('lembrarMe');
+        window.location.href = 'login.html';
+    }
+}
+
 async function inicializarApp() {
     console.log('🚀 Iniciando aplicação...');
+    
+    // Verificar se está autenticado
+    if (!verificarAutenticacao()) {
+        return; // Para a execução se não estiver logado
+    }
+    
+    // Configurar botão de logout
+    const btnLogout = document.getElementById('btnLogout');
+    if (btnLogout) {
+        btnLogout.addEventListener('click', fazerLogout);
+    }
     
     // Mostrar loading
     document.querySelector('#restaurantes .cards-container').innerHTML = 
