@@ -313,19 +313,19 @@ function getDadosMock() {
         'Whopper Rodeio', 
         'Hambúrguer com carne grelhada, queijo, cebola crispy e molho barbecue', 
         28.90,
-        'https://www.burgerking.com.br/cardapio/sanduiches'
+        'https://www.burgerking.com.br/cardapio/whopper-rodeio'
     ));
     restaurante1.adicionarPrato(new Prato(
         'Whopper', 
         'Hambúrguer com carne grelhada, queijo, alface, tomate e maionese', 
         24.90,
-        'https://www.burgerking.com.br/cardapio/sanduiches'
+        'https://www.burgerking.com.br/cardapio/whopper'
     ));
     restaurante1.adicionarPrato(new Prato(
         'Big King', 
         'Dois hambúrgueres, queijo, alface e molho especial', 
         26.90,
-        'https://www.burgerking.com.br/cardapio/sanduiches'
+        'https://www.burgerking.com.br/cardapio/big-king'
     ));
 
     const restaurante2 = new Restaurante('Sushi Master', 'Japonesa', 4, 3);
@@ -354,19 +354,19 @@ function getDadosMock() {
         'Segunda', 
         '2:33', 
         'Segunda',
-        'https://www.youtube.com/watch?v=CqaAs_3azn8'
+        'https://youtu.be/PWM3CUk4pW0?si=h19e0kJsccKSrpbg'
     ));
     artista1.adicionarMusica(new Musica(
         'Redento', 
         '2:45', 
         'Redento',
-        'https://www.youtube.com/watch?v=y5hq3KrSflk'
+        'https://youtu.be/34f8vcnr-Kc?si=xbuLv6_lozpwfBpi'
     ));
     artista1.adicionarMusica(new Musica(
         'Sonhos Irreais', 
         '3:12', 
         'Sonhos Irreais',
-        'https://www.youtube.com/watch?v=z-zOLgIa4xY'
+        'https://youtu.be/gfFqxuD1d5Q?si=Y_F-43da1FiZ-rKY'
     ));
 
     const artista2 = new Artista('BoyWithUke', 'Indie Pop/Alternative', 89);
@@ -374,19 +374,19 @@ function getDadosMock() {
         'Ghost', 
         '2:33', 
         'Serotonin Dreams',
-        'https://www.youtube.com/watch?v=5-_bXLk77Yk'
+        'https://youtu.be/DevwFKEFrfo?si=OX41BLRaDIlDBVL2'
     ));
     artista2.adicionarMusica(new Musica(
         'Corduroy', 
         '2:48', 
         'Lucid Dreams',
-        'https://www.youtube.com/watch?v=OsL-OkTRJqs'
+        'https://youtu.be/VvnnQ7csmC8?si=uQ_yncSzwR10z-xw'
     ));
     artista2.adicionarMusica(new Musica(
         'Petrichor (interlude)', 
         '1:45', 
         'Lucid Dreams',
-        'https://www.youtube.com/watch?v=0qYEd8LGsI0'
+        'https://youtu.be/NlGpRGRUUhY?si=Z3VEV0P0RJIHVDUg'
     ));
 
     return {
