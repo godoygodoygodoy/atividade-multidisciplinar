@@ -32,13 +32,102 @@ Este projeto demonstra um **ciclo completo de DevOps**, desde o planejamento at�
 
 ```
 atividade/
-├── index.html          # Estrutura da página
+├── index.html          # Estrutura da página principal
 ├── style.css           # Estilos (gradiente, cards, responsivo)
 ├── app.js              # Lógica POO + Integração API
+├── login.html          # Página de autenticação
+├── login.css           # Estilos da página de login
+├── login.js            # Lógica de autenticação
+├── admin.html          # Painel administrativo (NOVO!)
+├── admin.css           # Estilos do painel admin (NOVO!)
+├── admin.js            # Lógica do painel admin (NOVO!)
 ├── .env.example        # Exemplo de variáveis de ambiente
 ├── .gitignore          # Arquivos que o Git deve ignorar
 ├── README.md           # Este arquivo
-└── CONCEITOS.md        # Explicação detalhada para prova
+├── CONCEITOS.md        # Explicação detalhada para prova
+├── GUIA_MONGODB_VERCEL.md  # Tutorial completo de deploy
+└── INSTRUCOES_GITHUB.md    # Como usar o GitHub
+```
+
+---
+
+## 🔐 Sistema de Autenticação
+
+### Login de Usuário Normal
+- Acesse `login.html`
+- Preencha: nome, email e senha (mínimo 6 caracteres)
+- Será redirecionado para `index.html`
+- Todos os usuários são rastreados automaticamente
+
+### Login de Administrador
+**Credenciais Especiais:**
+- **Email**: `dann.adm`
+- **Senha**: `gI.adm.dA`
+
+Ao usar essas credenciais, você será redirecionado para o **Painel Administrativo** com acesso total ao sistema.
+
+---
+
+## 👑 Painel Administrativo
+
+### Funcionalidades:
+
+#### 📊 Dashboard Principal
+- **Total de Usuários**: Quantidade total de usuários cadastrados
+- **Usuários Online**: Usuários ativos no momento
+- **Novos Hoje**: Cadastros realizados no dia atual
+- **Total de Restaurantes**: Quantidade de restaurantes no sistema
+
+#### 📈 Gráficos Interativos (Chart.js)
+1. **Crescimento de Usuários**: Linha temporal mostrando evolução mensal
+2. **Horários de Acesso**: Distribuição de acessos por período do dia
+3. **Restaurantes Populares**: Pizza/rosca mostrando preferências
+4. **Músicas Mais Ouvidas**: Ranking das músicas favoritas
+5. **Dispositivos**: Distribuição entre Desktop/Mobile/Tablet
+6. **Visitas Diárias**: Acompanhamento semanal de visitas
+7. **Taxa de Conversão**: Métricas de conversão ao longo do tempo
+
+#### 👥 Gerenciamento de Usuários
+- **Visualizar** todos os usuários cadastrados
+- **Buscar** por nome ou email em tempo real
+- **Editar** informações de usuários
+- **Excluir** usuários do sistema
+- **Exportar** dados para CSV
+- Ver **status** (online/offline)
+- Ver **tipo** (admin/usuário)
+- Ver **último acesso**
+
+#### 🎵 Analytics
+- Análise de músicas mais ouvidas
+- Tendências de acesso
+- Métricas de engajamento
+
+#### 🍔 Gerenciamento de Restaurantes
+- Adicionar novos restaurantes
+- Editar informações existentes
+- Remover restaurantes
+
+#### ⚙️ Configurações
+- **Segurança**: Autenticação 2FA, senha forte, notificações de login
+- **Banco de Dados**: Configurar host e porta do MongoDB
+- **Notificações**: Email para novos usuários, atividades, push notifications
+- **Manutenção**: Limpar cache, fazer backup
+
+### Navegação do Admin:
+- **Dashboard**: Visão geral com estatísticas
+- **Usuários**: Gerenciamento completo
+- **Analytics**: Gráficos e métricas detalhadas
+- **Restaurantes**: CRUD de restaurantes
+- **Músicas**: CRUD de músicas
+- **Configurações**: Ajustes do sistema
+
+### Botões de Ação:
+- **Voltar**: Retorna para `index.html` (página principal)
+- **Logout**: Sai do painel administrativo
+
+---
+
+## 📁 Estrutura do Projeto
 ```
 
 ---
