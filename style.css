@@ -137,10 +137,30 @@ main {
     transform: translateX(5px);
 }
 
+/* Links de pratos clicáveis */
+.prato-link {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+    cursor: pointer;
+}
+
+.prato-link:hover {
+    background: linear-gradient(135deg, #fff5f7 0%, #ffe5f0 100%);
+    border-left-color: #e91e63;
+    transform: translateX(8px) scale(1.02);
+    box-shadow: 0 4px 12px rgba(233, 30, 99, 0.2);
+}
+
+.prato-link:hover h4 {
+    color: #e91e63;
+}
+
 .prato h4 {
     color: var(--primary-color);
     font-size: 1.1rem;
     margin-bottom: 5px;
+    transition: color 0.2s ease;
 }
 
 .prato p {
@@ -172,13 +192,41 @@ main {
     transform: translateX(5px);
 }
 
+/* Links de músicas clicáveis */
+.musica-link {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+    cursor: pointer;
+}
+
+.musica-link:hover {
+    background: linear-gradient(135deg, #fff3e0 0%, #ffe5cc 100%);
+    border-left-color: #ff9800;
+    transform: translateX(8px) scale(1.02);
+    box-shadow: 0 4px 12px rgba(255, 152, 0, 0.2);
+}
+
+.musica-link:hover strong {
+    color: #ff9800;
+}
+
+.musica-link:hover::after {
+    content: ' ▶';
+    color: #ff9800;
+    font-size: 0.8rem;
+    margin-left: 5px;
+}
+
 .musica p {
     margin: 3px 0;
     font-size: 0.95rem;
+    transition: color 0.2s ease;
 }
 
 .musica strong {
     color: var(--secondary-color);
+    transition: color 0.2s ease;
 }
 
 .musica em {

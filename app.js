@@ -136,23 +136,33 @@ class Restaurante {
    mas um prato não "herda" de restaurante.
 ===================================================================== */
 class Prato {
-    constructor(nome, descricao, valor) {
+    constructor(nome, descricao, valor, link) {
         this.nome = nome;
         this.descricao = descricao;
         this.valor = valor;
+        this.link = link; // Link para o site do produto
     }
 
     render() {
-        return `
-            <div class="prato">
-                <h4>🍴 ${this.nome} - R$ ${this.valor.toFixed(2)}</h4>
-                <p>${this.descricao}</p>
-            </div>
+        const conteudo = `
+            <h4>🍴 ${this.nome} - R$ ${this.valor.toFixed(2)}</h4>
+            <p>${this.descricao}</p>
         `;
+        
+        // Se tiver link, torna clicável
+        if (this.link) {
+            return `
+                <a href="${this.link}" target="_blank" class="prato prato-link">
+                    ${conteudo}
+                </a>
+            `;
+        }
+        
+        return `<div class="prato">${conteudo}</div>`;
     }
 
     static fromJSON(data) {
-        return new Prato(data.nome, data.descricao, data.valor);
+        return new Prato(data.nome, data.descricao, data.valor, data.link);
     }
 }
 
@@ -229,23 +239,33 @@ class Artista {
    CLASSE MÚSICA
 ===================================================================== */
 class Musica {
-    constructor(titulo, duracao, album) {
+    constructor(titulo, duracao, album, link) {
         this.titulo = titulo;
         this.duracao = duracao; // Ex: "3:45"
         this.album = album;
+        this.link = link; // Link para YouTube/Spotify
     }
 
     render() {
-        return `
-            <div class="musica">
-                <p>🎶 <strong>${this.titulo}</strong> (${this.duracao})</p>
-                <p><em>Álbum: ${this.album}</em></p>
-            </div>
+        const conteudo = `
+            <p>🎶 <strong>${this.titulo}</strong> (${this.duracao})</p>
+            <p><em>Álbum: ${this.album}</em></p>
         `;
+        
+        // Se tiver link, torna clicável
+        if (this.link) {
+            return `
+                <a href="${this.link}" target="_blank" class="musica musica-link">
+                    ${conteudo}
+                </a>
+            `;
+        }
+        
+        return `<div class="musica">${conteudo}</div>`;
     }
 
     static fromJSON(data) {
-        return new Musica(data.titulo, data.duracao, data.album);
+        return new Musica(data.titulo, data.duracao, data.album, data.link);
     }
 }
 
@@ -289,25 +309,85 @@ const USE_MOCK_DATA = true; // Mude para false quando configurar MongoDB
 function getDadosMock() {
     // Criar Restaurantes
     const restaurante1 = new Restaurante('Burger King', 'Fast Food', 4, 2);
-    restaurante1.adicionarPrato(new Prato('Whopper Rodeio', 'Hambúrguer com carne grelhada, queijo, cebola crispy e molho barbecue', 28.90));
-    restaurante1.adicionarPrato(new Prato('Whopper', 'Hambúrguer com carne grelhada, queijo, alface, tomate e maionese', 24.90));
-    restaurante1.adicionarPrato(new Prato('Big King', 'Dois hambúrgueres, queijo, alface e molho especial', 26.90));
+    restaurante1.adicionarPrato(new Prato(
+        'Whopper Rodeio', 
+        'Hambúrguer com carne grelhada, queijo, cebola crispy e molho barbecue', 
+        28.90,
+        'https://www.burgerking.com.br/cardapio/sanduiches'
+    ));
+    restaurante1.adicionarPrato(new Prato(
+        'Whopper', 
+        'Hambúrguer com carne grelhada, queijo, alface, tomate e maionese', 
+        24.90,
+        'https://www.burgerking.com.br/cardapio/sanduiches'
+    ));
+    restaurante1.adicionarPrato(new Prato(
+        'Big King', 
+        'Dois hambúrgueres, queijo, alface e molho especial', 
+        26.90,
+        'https://www.burgerking.com.br/cardapio/sanduiches'
+    ));
 
     const restaurante2 = new Restaurante('Sushi Master', 'Japonesa', 4, 3);
-    restaurante2.adicionarPrato(new Prato('Combinado Especial', '30 peças variadas de sushi e sashimi', 89.90));
-    restaurante2.adicionarPrato(new Prato('Temaki de Salmão', 'Cone de alga com arroz e salmão', 28.00));
-    restaurante2.adicionarPrato(new Prato('Yakisoba', 'Macarrão frito com legumes e carne', 35.00));
+    restaurante2.adicionarPrato(new Prato(
+        'Combinado Especial', 
+        '30 peças variadas de sushi e sashimi', 
+        89.90,
+        'https://www.ifood.com.br'
+    ));
+    restaurante2.adicionarPrato(new Prato(
+        'Temaki de Salmão', 
+        'Cone de alga com arroz e salmão', 
+        28.00,
+        'https://www.ifood.com.br'
+    ));
+    restaurante2.adicionarPrato(new Prato(
+        'Yakisoba', 
+        'Macarrão frito com legumes e carne', 
+        35.00,
+        'https://www.ifood.com.br'
+    ));
 
     // Criar Artistas
     const artista1 = new Artista('VMZ', 'Trap/Rap', 92);
-    artista1.adicionarMusica(new Musica('Segunda', '2:33', 'Segunda'));
-    artista1.adicionarMusica(new Musica('Redento', '2:45', 'Redento'));
-    artista1.adicionarMusica(new Musica('Sonhos Irreais', '3:12', 'Sonhos Irreais'));
+    artista1.adicionarMusica(new Musica(
+        'Segunda', 
+        '2:33', 
+        'Segunda',
+        'https://www.youtube.com/watch?v=CqaAs_3azn8'
+    ));
+    artista1.adicionarMusica(new Musica(
+        'Redento', 
+        '2:45', 
+        'Redento',
+        'https://www.youtube.com/watch?v=y5hq3KrSflk'
+    ));
+    artista1.adicionarMusica(new Musica(
+        'Sonhos Irreais', 
+        '3:12', 
+        'Sonhos Irreais',
+        'https://www.youtube.com/watch?v=z-zOLgIa4xY'
+    ));
 
     const artista2 = new Artista('BoyWithUke', 'Indie Pop/Alternative', 89);
-    artista2.adicionarMusica(new Musica('Ghost', '2:33', 'Serotonin Dreams'));
-    artista2.adicionarMusica(new Musica('Corduroy', '2:48', 'Lucid Dreams'));
-    artista2.adicionarMusica(new Musica('Petrichor (interlude)', '1:45', 'Lucid Dreams'));
+    artista2.adicionarMusica(new Musica(
+        'Ghost', 
+        '2:33', 
+        'Serotonin Dreams',
+        'https://www.youtube.com/watch?v=5-_bXLk77Yk'
+    ));
+    artista2.adicionarMusica(new Musica(
+        'Corduroy', 
+        '2:48', 
+        'Lucid Dreams',
+        'https://www.youtube.com/watch?v=OsL-OkTRJqs'
+    ));
+    artista2.adicionarMusica(new Musica(
+        'Petrichor (interlude)', 
+        '1:45', 
+        'Lucid Dreams',
+        'https://www.youtube.com/watch?v=0qYEd8LGsI0'
+    ));
 
     return {
         restaurantes: [restaurante1, restaurante2],
