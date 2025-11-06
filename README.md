@@ -166,7 +166,7 @@ http://localhost:8000
     {
       "titulo": "Sonhos Irreais",
       "duracao": "3:12",
-      "album": "ASTRO"
+      "album": "Sonhos Irreais"
     }
   ]
 }

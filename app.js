@@ -302,7 +302,7 @@ function getDadosMock() {
     const artista1 = new Artista('VMZ', 'Trap/Rap', 92);
     artista1.adicionarMusica(new Musica('Segunda', '2:33', 'Segunda'));
     artista1.adicionarMusica(new Musica('Redento', '2:45', 'Redento'));
-    artista1.adicionarMusica(new Musica('Sonhos Irreais', '3:12', 'ASTRO'));
+    artista1.adicionarMusica(new Musica('Sonhos Irreais', '3:12', 'Sonhos Irreais'));
 
     const artista2 = new Artista('BoyWithUke', 'Indie Pop/Alternative', 89);
     artista2.adicionarMusica(new Musica('Ghost', '2:33', 'Serotonin Dreams'));
