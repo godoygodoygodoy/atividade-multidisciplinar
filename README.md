@@ -149,19 +149,19 @@ http://localhost:8000
 **Collection: artistas**
 ```json
 {
-  "nome": "Legião Urbana",
-  "genero": "Rock Nacional",
-  "popularidade": 95,
+  "nome": "VMZ",
+  "genero": "Trap/Rap",
+  "popularidade": 92,
   "musicas": [
     {
-      "titulo": "Faroeste Caboclo",
-      "duracao": "9:03",
-      "album": "Que País é Este"
+      "titulo": "Raposa",
+      "duracao": "2:41",
+      "album": "Raposa"
     },
     {
-      "titulo": "Tempo Perdido",
-      "duracao": "5:24",
-      "album": "Dois"
+      "titulo": "Não Foi Tudo em Vão",
+      "duracao": "3:15",
+      "album": "ASTRO"
     }
   ]
 }

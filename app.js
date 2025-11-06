@@ -299,15 +299,15 @@ function getDadosMock() {
     restaurante2.adicionarPrato(new Prato('Yakisoba', 'Macarrão frito com legumes e carne', 35.00));
 
     // Criar Artistas
-    const artista1 = new Artista('Legião Urbana', 'Rock Nacional', 95);
-    artista1.adicionarMusica(new Musica('Faroeste Caboclo', '9:03', 'Que País é Este'));
-    artista1.adicionarMusica(new Musica('Tempo Perdido', '5:24', 'Dois'));
-    artista1.adicionarMusica(new Musica('Pais e Filhos', '5:08', 'As Quatro Estações'));
+    const artista1 = new Artista('VMZ', 'Trap/Rap', 92);
+    artista1.adicionarMusica(new Musica('Raposa', '2:41', 'Raposa'));
+    artista1.adicionarMusica(new Musica('Não Foi Tudo em Vão', '3:15', 'ASTRO'));
+    artista1.adicionarMusica(new Musica('Mainstream', '2:53', 'Mainstream'));
 
-    const artista2 = new Artista('Marisa Monte', 'MPB', 88);
-    artista2.adicionarMusica(new Musica('Ainda Bem', '3:45', 'Infinito Particular'));
-    artista2.adicionarMusica(new Musica('Velha Infância', '4:12', 'Mais'));
-    artista2.adicionarMusica(new Musica('Beija Eu', '3:38', 'Memórias, Crônicas e Declarações de Amor'));
+    const artista2 = new Artista('BoyWithUke', 'Indie Pop/Alternative', 89);
+    artista2.adicionarMusica(new Musica('Toxic', '2:40', 'Serotonin Dreams'));
+    artista2.adicionarMusica(new Musica('IDGAF', '2:26', 'Serotonin Dreams'));
+    artista2.adicionarMusica(new Musica('Understand', '2:50', 'Lucid Dreams'));
 
     return {
         restaurantes: [restaurante1, restaurante2],
