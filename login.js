@@ -78,29 +78,74 @@ function processarLogin(event) {
         return;
     }
     
+    // Verificar se é admin
+    const isAdmin = (email === 'dann.adm' && senha === 'gI.adm.dA');
+    
     // Simular loading
     const btnLogin = event.target.querySelector('button[type="submit"]');
     btnLogin.classList.add('loading');
     
     // Simular delay de autenticação (em produção, seria chamada à API)
     setTimeout(() => {
-        // Salvar dados do usuário no localStorage
-        const usuario = {
-            nome: nome,
-            email: email,
-            dataLogin: new Date().toISOString()
-        };
-        
-        localStorage.setItem('usuarioLogado', JSON.stringify(usuario));
-        localStorage.setItem('lembrarMe', lembrar.toString());
-        
-        // Sucesso!
-        mostrarMensagem('✅ Login realizado com sucesso!', 'success');
-        
-        // Redirecionar após 1 segundo
-        setTimeout(() => {
-            window.location.href = 'index.html';
-        }, 1000);
+        if (isAdmin) {
+            // Login de administrador
+            const adminData = {
+                username: email,
+                senha: senha,
+                nome: 'Administrador',
+                dataLogin: new Date().toISOString()
+            };
+            
+            localStorage.setItem('adminLogado', JSON.stringify(adminData));
+            localStorage.setItem('lembrarMe', lembrar.toString());
+            
+            mostrarMensagem('🔐 Login administrativo realizado com sucesso!', 'success');
+            
+            setTimeout(() => {
+                window.location.href = 'admin.html';
+            }, 1000);
+        } else {
+            // Login de usuário normal
+            const usuario = {
+                nome: nome,
+                email: email,
+                dataLogin: new Date().toISOString()
+            };
+            
+            localStorage.setItem('usuarioLogado', JSON.stringify(usuario));
+            localStorage.setItem('lembrarMe', lembrar.toString());
+            
+            // Adicionar usuário à lista de todos os usuários
+            let todosUsuarios = JSON.parse(localStorage.getItem('todosUsuarios') || '[]');
+            const usuarioExistente = todosUsuarios.find(u => u.email === email);
+            
+            if (!usuarioExistente) {
+                const novoUsuario = {
+                    id: todosUsuarios.length + 1,
+                    nome: nome,
+                    email: email,
+                    dataCriacao: new Date().toISOString().split('T')[0],
+                    ultimoAcesso: new Date().toLocaleString('pt-BR'),
+                    status: 'online',
+                    tipo: 'usuario'
+                };
+                todosUsuarios.push(novoUsuario);
+                localStorage.setItem('todosUsuarios', JSON.stringify(todosUsuarios));
+            } else {
+                // Atualizar último acesso
+                usuarioExistente.ultimoAcesso = new Date().toLocaleString('pt-BR');
+                usuarioExistente.status = 'online';
+                localStorage.setItem('todosUsuarios', JSON.stringify(todosUsuarios));
+            }
+            
+            // Sucesso!
+            mostrarMensagem('✅ Login realizado com sucesso!', 'success');
+            
+            // Redirecionar após 1 segundo
+            setTimeout(() => {
+                window.location.href = 'index.html';
+            }, 1000);
+        }
         
     }, 1500); // Simula 1.5s de processamento
 }

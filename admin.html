@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel Administrativo - DevOps</title>
+    <link rel="stylesheet" href="admin.css">
+    <!-- Chart.js para gráficos -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="admin-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h2>🛡️ Admin Panel</h2>
+                <p id="adminName"></p>
+            </div>
+
+            <nav class="sidebar-nav">
+                <button class="nav-item active" data-section="dashboard">
+                    📊 Dashboard
+                </button>
+                <button class="nav-item" data-section="usuarios">
+                    👥 Usuários
+                </button>
+                <button class="nav-item" data-section="analytics">
+                    📈 Analytics
+                </button>
+                <button class="nav-item" data-section="restaurantes">
+                    🍔 Restaurantes
+                </button>
+                <button class="nav-item" data-section="musicas">
+                    🎵 Músicas
+                </button>
+                <button class="nav-item" data-section="configuracoes">
+                    ⚙️ Configurações
+                </button>
+            </nav>
+
+            <div class="sidebar-footer">
+                <button class="btn-voltar" id="btnVoltar">
+                    ← Voltar ao Site
+                </button>
+                <button class="btn-logout" id="btnLogout">
+                    🚪 Sair
+                </button>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header class="content-header">
+                <h1 id="pageTitle">Dashboard</h1>
+                <div class="header-actions">
+                    <span class="current-time" id="currentTime"></span>
+                </div>
+            </header>
+
+            <!-- Dashboard Section -->
+            <section id="dashboard" class="content-section active">
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon">👥</div>
+                        <div class="stat-info">
+                            <h3>Total de Usuários</h3>
+                            <p class="stat-number" id="totalUsuarios">0</p>
+                            <small class="stat-change positive">+12% este mês</small>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-icon">🟢</div>
+                        <div class="stat-info">
+                            <h3>Usuários Online</h3>
+                            <p class="stat-number" id="usuariosOnline">0</p>
+                            <small class="stat-change">Agora</small>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-icon">📅</div>
+                        <div class="stat-info">
+                            <h3>Novos Hoje</h3>
+                            <p class="stat-number" id="novosHoje">0</p>
+                            <small class="stat-change positive">+3 desde ontem</small>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-icon">🍔</div>
+                        <div class="stat-info">
+                            <h3>Restaurantes</h3>
+                            <p class="stat-number">2</p>
+                            <small class="stat-change">Ativos</small>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="charts-grid">
+                    <div class="chart-card">
+                        <h3>📈 Crescimento de Usuários (Últimos 7 dias)</h3>
+                        <canvas id="chartUsuarios"></canvas>
+                    </div>
+
+                    <div class="chart-card">
+                        <h3>🕐 Horários de Acesso</h3>
+                        <canvas id="chartHorarios"></canvas>
+                    </div>
+                </div>
+
+                <div class="recent-activity">
+                    <h3>📋 Atividade Recente</h3>
+                    <div class="activity-list" id="activityList"></div>
+                </div>
+            </section>
+
+            <!-- Usuários Section -->
+            <section id="usuarios" class="content-section">
+                <div class="section-header">
+                    <h2>👥 Gerenciamento de Usuários</h2>
+                    <div class="section-actions">
+                        <input type="text" id="searchUsuarios" placeholder="🔍 Buscar usuários..." class="search-input">
+                        <button class="btn-primary" id="btnExportarUsuarios">
+                            💾 Exportar CSV
+                        </button>
+                    </div>
+                </div>
+
+                <div class="table-container">
+                    <table class="users-table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Nome</th>
+                                <th>Email</th>
+                                <th>Status</th>
+                                <th>Último Acesso</th>
+                                <th>Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody id="usuariosTableBody">
+                            <!-- Preenchido via JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="pagination" id="usersPagination"></div>
+            </section>
+
+            <!-- Analytics Section -->
+            <section id="analytics" class="content-section">
+                <h2>📈 Analytics Avançado</h2>
+                
+                <div class="analytics-grid">
+                    <div class="chart-card">
+                        <h3>🍕 Restaurantes Mais Acessados</h3>
+                        <canvas id="chartRestaurantes"></canvas>
+                    </div>
+
+                    <div class="chart-card">
+                        <h3>🎵 Músicas Mais Tocadas</h3>
+                        <canvas id="chartMusicas"></canvas>
+                    </div>
+
+                    <div class="chart-card full-width">
+                        <h3>📊 Dispositivos Utilizados</h3>
+                        <canvas id="chartDispositivos"></canvas>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Restaurantes Section -->
+            <section id="restaurantes" class="content-section">
+                <div class="section-header">
+                    <h2>🍔 Gerenciamento de Restaurantes</h2>
+                    <button class="btn-primary" id="btnAddRestaurante">
+                        ➕ Adicionar Restaurante
+                    </button>
+                </div>
+
+                <div class="cards-grid" id="restaurantesGrid">
+                    <!-- Preenchido via JavaScript -->
+                </div>
+            </section>
+
+            <!-- Músicas Section -->
+            <section id="musicas" class="content-section">
+                <div class="section-header">
+                    <h2>🎵 Gerenciamento de Músicas</h2>
+                    <button class="btn-primary" id="btnAddArtista">
+                        ➕ Adicionar Artista
+                    </button>
+                </div>
+
+                <div class="cards-grid" id="musicasGrid">
+                    <!-- Preenchido via JavaScript -->
+                </div>
+            </section>
+
+            <!-- Configurações Section -->
+            <section id="configuracoes" class="content-section">
+                <h2>⚙️ Configurações do Sistema</h2>
+
+                <div class="config-grid">
+                    <div class="config-card">
+                        <h3>🔒 Segurança</h3>
+                        <div class="config-item">
+                            <label>
+                                <input type="checkbox" id="require2FA" checked>
+                                Exigir autenticação de 2 fatores
+                            </label>
+                        </div>
+                        <div class="config-item">
+                            <label>
+                                <input type="checkbox" id="autoLogout" checked>
+                                Logout automático após inatividade
+                            </label>
+                        </div>
+                        <div class="config-item">
+                            <label>Tempo de sessão (minutos):</label>
+                            <input type="number" value="30" class="config-input">
+                        </div>
+                    </div>
+
+                    <div class="config-card">
+                        <h3>🗄️ Banco de Dados</h3>
+                        <div class="config-item">
+                            <label>Status: <span class="badge success">Conectado</span></label>
+                        </div>
+                        <div class="config-item">
+                            <label>API URL:</label>
+                            <input type="text" value="MongoDB Atlas" class="config-input" readonly>
+                        </div>
+                        <button class="btn-secondary">🔄 Testar Conexão</button>
+                    </div>
+
+                    <div class="config-card">
+                        <h3>📧 Notificações</h3>
+                        <div class="config-item">
+                            <label>
+                                <input type="checkbox" id="emailNotif" checked>
+                                Notificações por email
+                            </label>
+                        </div>
+                        <div class="config-item">
+                            <label>
+                                <input type="checkbox" id="newUserNotif" checked>
+                                Avisar sobre novos usuários
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="config-card">
+                        <h3>🧹 Manutenção</h3>
+                        <button class="btn-danger full-width">🗑️ Limpar Cache</button>
+                        <button class="btn-danger full-width">💾 Backup do Banco</button>
+                        <button class="btn-danger full-width">📊 Gerar Relatório</button>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="admin.js"></script>
+</body>
+</html>
