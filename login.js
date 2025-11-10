@@ -151,10 +151,10 @@ function processarLogin(event) {
 }
 
 /* =====================================================================
-   CRIAR NOVA CONTA (SIMULADO)
+   CRIAR NOVA CONTA
 ===================================================================== */
 function criarConta() {
-    mostrarMensagem('ℹ️ Funcionalidade de cadastro será implementada em breve!', 'success');
+    window.location.href = 'cadastro.html';
 }
 
 /* =====================================================================
