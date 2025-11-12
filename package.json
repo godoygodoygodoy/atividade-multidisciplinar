@@ -1,0 +1,31 @@
+{
+  "name": "atividade-multidisciplinar",
+  "version": "1.0.0",
+  "description": "Projeto DevOps - Ciclo Completo de Desenvolvimento",
+  "main": "app.js",
+  "scripts": {
+    "populate": "node scripts/populate-db.js",
+    "dev": "npx serve .",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/godoygodoygodoy/atividade-multidisciplinar.git"
+  },
+  "keywords": [
+    "devops",
+    "mongodb",
+    "vercel",
+    "poo",
+    "javascript"
+  ],
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/godoygodoygodoy/atividade-multidisciplinar/issues"
+  },
+  "homepage": "https://github.com/godoygodoygodoy/atividade-multidisciplinar#readme",
+  "devDependencies": {
+    "dotenv": "^16.4.5"
+  }
+}

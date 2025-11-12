@@ -213,6 +213,25 @@ http://localhost:8000
 
 ### Passo 6: Inserir Dados de Exemplo
 
+**Opção 1 - Script Automatizado (Recomendado):**
+```bash
+# 1. Instalar dependências
+npm install
+
+# 2. Configurar .env com suas credenciais (veja .env.example)
+
+# 3. Executar script
+npm run populate
+```
+
+O script `scripts/populate-db.js` vai inserir automaticamente:
+- 3 restaurantes com pratos
+- 3 artistas com músicas
+
+**Opção 2 - Manual (MongoDB Atlas UI):**
+
+Acesse: MongoDB Atlas → Browse Collections → Insert Document
+
 **Collection: restaurantes**
 ```json
 {
@@ -318,13 +337,24 @@ git push origin staging
    - **Output Directory**: (deixe vazio)
 
 ### Passo 3: Configurar Environment Variables
+
+**IMPORTANTE**: Agora usamos uma função serverless (`/api/mongo`) que protege as credenciais!
+
 1. Settings → **Environment Variables**
-2. Adicione:
+2. Adicione as seguintes variáveis:
 
 | Name | Value | Environments |
 |------|-------|--------------|
-| `API_URL` | (URL do MongoDB) | ✅ Production ✅ Preview |
-| `API_KEY` | (Chave do MongoDB) | ✅ Production ✅ Preview |
+| `MONGODB_DATA_API_URL` | `https://data.mongodb-api.com/app/SEU-APP-ID/endpoint` | ✅ Production ✅ Preview |
+| `MONGODB_API_KEY` | Sua API Key do MongoDB Atlas | ✅ Production ✅ Preview |
+| `MONGODB_DATA_SOURCE` | `Cluster0` (ou nome do seu cluster) | ✅ Production ✅ Preview |
+| `MONGODB_DATABASE` | `devops_projeto` | ✅ Production ✅ Preview |
+
+**Como obter essas informações:**
+- **MONGODB_DATA_API_URL**: MongoDB Atlas → Data API → Copy Endpoint URL
+- **MONGODB_API_KEY**: MongoDB Atlas → Data API → Create API Key
+- **MONGODB_DATA_SOURCE**: Nome do seu cluster (geralmente `Cluster0`)
+- **MONGODB_DATABASE**: Nome do banco que você criou
 
 ### Passo 4: Deploy
 1. Clique em **Deploy**
@@ -337,6 +367,58 @@ git push origin staging
 A partir de agora:
 - **Push na staging** → Vercel cria Preview Deploy automaticamente
 - **Merge na main** → Vercel deploya em Produção automaticamente
+
+---
+
+## 🔐 Arquitetura de Segurança - Função Serverless
+
+### Por que usamos `/api/mongo`?
+
+**ANTES (❌ INSEGURO):**
+```
+Frontend → MongoDB Data API diretamente
+- Problema: API_KEY exposta no código JavaScript
+- Qualquer pessoa pode ver suas credenciais no navegador!
+```
+
+**AGORA (✅ SEGURO):**
+```
+Frontend → /api/mongo (Vercel Serverless) → MongoDB Data API
+- API_KEY fica no servidor (Vercel)
+- Frontend só recebe os dados
+- Credenciais nunca são expostas
+```
+
+### Como funciona?
+
+1. **Frontend** (`app.js`):
+```javascript
+// Chama nossa função serverless (SEM credenciais!)
+const response = await fetch('/api/mongo');
+const dados = await response.json();
+```
+
+2. **Função Serverless** (`api/mongo.js`):
+```javascript
+// Roda no servidor da Vercel
+const API_KEY = process.env.MONGODB_API_KEY; // Segura!
+// Chama MongoDB Data API
+// Retorna dados para o frontend
+```
+
+3. **Variáveis de Ambiente** (Vercel Dashboard):
+```
+MONGODB_API_KEY = abc123... (nunca vai para o GitHub!)
+```
+
+### Arquivos da Arquitetura
+
+| Arquivo | Função | Local |
+|---------|--------|-------|
+| `app.js` | Frontend (navegador) | Público |
+| `api/mongo.js` | Backend serverless | Servidor Vercel |
+| `vercel.json` | Configuração de rotas | Projeto |
+| Environment Variables | Credenciais seguras | Vercel Dashboard |
 
 ---
 
