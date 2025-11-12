@@ -1,0 +1,21 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "api/**/*.js",
+      "use": "@vercel/node"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/api/(.*)",
+      "dest": "/api/$1"
+    }
+  ],
+  "env": {
+    "MONGODB_DATA_API_URL": "@mongodb_data_api_url",
+    "MONGODB_API_KEY": "@mongodb_api_key",
+    "MONGODB_DATA_SOURCE": "@mongodb_data_source",
+    "MONGODB_DATABASE": "@mongodb_database"
+  }
+}

@@ -256,17 +256,25 @@ class Musica {
    EXPLICAÇÃO COPILOT: Por que usar variáveis de ambiente?
    
    Em desenvolvimento local: usamos dados falsos (mock data)
-   Em produção: conectamos ao MongoDB
+   Em produção: conectamos ao MongoDB via função serverless
    
    A constante USE_MOCK_DATA controla isso.
-   Em ambiente real, você configuraria na Vercel:
-   - Environment Variable: USE_MOCK_DATA = false
-   - Environment Variable: API_URL = sua URL real
-   - Environment Variable: API_KEY = sua chave real
+   
+   Para ativar a API real:
+   1. Configure as variáveis de ambiente na Vercel:
+      - MONGODB_DATA_API_URL = https://data.mongodb-api.com/app/seu-app-id/endpoint
+      - MONGODB_API_KEY = sua chave API do MongoDB Atlas
+      - MONGODB_DATA_SOURCE = Cluster0 (ou nome do seu cluster)
+      - MONGODB_DATABASE = devops_projeto (ou nome do seu banco)
+   
+   2. Mude USE_MOCK_DATA para false
+   
+   3. Faça commit e push - Vercel fará deploy automaticamente!
 ===================================================================== */
 
 // Controla se usamos dados falsos ou API real
-const USE_MOCK_DATA = true; // Mude para false quando configurar MongoDB
+// PRODUÇÃO: mude para false após configurar variáveis na Vercel
+const USE_MOCK_DATA = false;
 
 /* =====================================================================
    DADOS MOCK (FALSOS) - SEMANA 1
@@ -332,70 +340,67 @@ function getDadosMock() {
    4. Usa os dados
 ===================================================================== */
 async function getDadosAPI() {
-    /* EXPLICAÇÃO COPILOT: Por que usar process.env?
+    /* EXPLICAÇÃO COPILOT: Por que usar uma função serverless?
        
-       Em Node.js e bundlers modernos (Webpack, Vite), process.env
-       é um objeto especial que contém variáveis de ambiente.
+       Antes: Frontend chamava MongoDB Data API diretamente
+       - Problema: API_KEY exposta no código (qualquer um vê!)
        
-       Na Vercel:
-       - Você configura API_URL e API_KEY no dashboard
-       - Durante o build, a Vercel injeta esses valores
-       - Seu código acessa via process.env.API_URL
+       Agora: Frontend chama /api/mongo (nossa função serverless)
+       - A função serverless roda no servidor da Vercel
+       - Ela tem acesso seguro às variáveis de ambiente
+       - Ela faz a chamada autenticada ao MongoDB
+       - Frontend recebe apenas os dados, sem expor credenciais
        
-       NUNCA coloque chaves diretamente no código:
+       Fluxo Seguro:
+       1. Frontend: fetch('/api/mongo')
+       2. Vercel executa api/mongo.js no servidor
+       3. api/mongo.js usa API_KEY (segura, do servidor)
+       4. api/mongo.js chama MongoDB Data API
+       5. Frontend recebe os dados
+       
+       NUNCA coloque chaves diretamente no código frontend:
        ❌ const API_KEY = 'abc123' (qualquer um vê no GitHub!)
-       ✅ const API_KEY = process.env.API_KEY (seguro!)
+       ✅ Função serverless com process.env.API_KEY (seguro!)
     */
-    const API_URL = process.env.API_URL || 'URL_NAO_CONFIGURADA';
-    const API_KEY = process.env.API_KEY || 'KEY_NAO_CONFIGURADA';
 
     try {
-        // Buscar Restaurantes
-        const restaurantesResponse = await fetch(`${API_URL}/action/find`, {
-            method: 'POST',
+        console.log('🔍 Buscando dados via /api/mongo...');
+        
+        // Chamar nossa função serverless
+        const response = await fetch('/api/mongo', {
+            method: 'GET',
             headers: {
-                'Content-Type': 'application/json',
-                'api-key': API_KEY
-            },
-            body: JSON.stringify({
-                dataSource: 'Cluster0',
-                database: 'devops_projeto',
-                collection: 'restaurantes'
-            })
+                'Content-Type': 'application/json'
+            }
         });
 
-        // Buscar Artistas
-        const artistasResponse = await fetch(`${API_URL}/action/find`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'api-key': API_KEY
-            },
-            body: JSON.stringify({
-                dataSource: 'Cluster0',
-                database: 'devops_projeto',
-                collection: 'artistas'
-            })
-        });
+        if (!response.ok) {
+            throw new Error(`Erro HTTP: ${response.status}`);
+        }
 
-        const restaurantesData = await restaurantesResponse.json();
-        const artistasData = await artistasResponse.json();
+        const result = await response.json();
+
+        if (!result.success) {
+            throw new Error(result.message || 'Erro ao buscar dados');
+        }
+
+        console.log('✅ Dados recebidos da API:', result.data);
 
         // Converter JSON em objetos das classes
-        const restaurantes = restaurantesData.documents.map(doc => 
+        const restaurantes = (result.data.restaurantes || []).map(doc => 
             Restaurante.fromJSON(doc)
         );
 
-        const artistas = artistasData.documents.map(doc => 
+        const artistas = (result.data.artistas || []).map(doc => 
             Artista.fromJSON(doc)
         );
 
         return { restaurantes, artistas };
 
     } catch (error) {
-        console.error('Erro ao buscar dados da API:', error);
+        console.error('❌ Erro ao buscar dados da API:', error);
         // Se falhar, usa dados mock como fallback
-        console.warn('Usando dados mock como fallback...');
+        console.warn('⚠️  Usando dados mock como fallback...');
         return getDadosMock();
     }
 }
