@@ -3,8 +3,9 @@
   "version": "1.0.0",
   "description": "Projeto DevOps - Ciclo Completo de Desenvolvimento",
   "main": "app.js",
+  "type": "module",
   "scripts": {
-    "populate": "node scripts/populate-db.js",
+    "create-admin": "node scripts/create-admin.js",
     "dev": "npx serve .",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -25,6 +26,9 @@
     "url": "https://github.com/godoygodoygodoy/atividade-multidisciplinar/issues"
   },
   "homepage": "https://github.com/godoygodoygodoy/atividade-multidisciplinar#readme",
+  "dependencies": {
+    "bcryptjs": "^2.4.3"
+  },
   "devDependencies": {
     "dotenv": "^16.4.5"
   }

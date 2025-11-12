@@ -3,27 +3,149 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Projeto DevOps - Restaurante & Música</title>
+    <title>Sistema de Gestão - Login</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <header>
-        <h1>🍽️ Restaurante & Playlist 🎵</h1>
-        <p>Projeto DevOps - Ciclo Completo de Desenvolvimento</p>
-    </header>
-    <main id="app">
-        <section id="restaurantes" class="section">
-            <h2>Restaurantes</h2>
-            <div class="cards-container"></div>
-        </section>
-        <section id="musicas" class="section">
-            <h2>Artistas & Músicas</h2>
-            <div class="cards-container"></div>
-        </section>
-    </main>
-    <footer>
-        <p>Deploy automatizado via Vercel | Branch Strategy: Staging → Main</p>
-    </footer>
+    <!-- Tela de Login -->
+    <div id="login-screen" class="auth-screen">
+        <div class="auth-container">
+            <div class="auth-header">
+                <h1>🔐 Sistema de Gestão</h1>
+                <p>Faça login para acessar o sistema</p>
+            </div>
+            
+            <form id="login-form" class="auth-form">
+                <div class="form-group">
+                    <label for="login-email">E-mail:</label>
+                    <input type="email" id="login-email" required placeholder="seu@email.com">
+                </div>
+                
+                <div class="form-group">
+                    <label for="login-password">Senha:</label>
+                    <input type="password" id="login-password" required placeholder="••••••••">
+                </div>
+                
+                <button type="submit" class="btn btn-primary">Entrar</button>
+                
+                <div class="auth-links">
+                    <p>Não tem conta? <a href="#" id="show-register">Cadastre-se</a></p>
+                </div>
+            </form>
+            
+            <div id="login-message" class="message"></div>
+        </div>
+    </div>
+
+    <!-- Tela de Cadastro -->
+    <div id="register-screen" class="auth-screen" style="display: none;">
+        <div class="auth-container">
+            <div class="auth-header">
+                <h1>📝 Criar Conta</h1>
+                <p>Preencha os dados para se cadastrar</p>
+            </div>
+            
+            <form id="register-form" class="auth-form">
+                <div class="form-group">
+                    <label for="register-name">Nome Completo:</label>
+                    <input type="text" id="register-name" required placeholder="Seu nome">
+                </div>
+                
+                <div class="form-group">
+                    <label for="register-email">E-mail:</label>
+                    <input type="email" id="register-email" required placeholder="seu@email.com">
+                </div>
+                
+                <div class="form-group">
+                    <label for="register-password">Senha:</label>
+                    <input type="password" id="register-password" required placeholder="Mínimo 6 caracteres">
+                </div>
+                
+                <div class="form-group">
+                    <label for="register-confirm">Confirmar Senha:</label>
+                    <input type="password" id="register-confirm" required placeholder="Digite a senha novamente">
+                </div>
+                
+                <button type="submit" class="btn btn-primary">Cadastrar</button>
+                
+                <div class="auth-links">
+                    <p>Já tem conta? <a href="#" id="show-login">Faça login</a></p>
+                </div>
+            </form>
+            
+            <div id="register-message" class="message"></div>
+        </div>
+    </div>
+
+    <!-- Área do Usuário Normal -->
+    <div id="user-screen" class="main-screen" style="display: none;">
+        <header class="main-header">
+            <div class="header-content">
+                <h1>📊 Painel do Usuário</h1>
+                <div class="user-info">
+                    <span id="user-name-display"></span>
+                    <button id="logout-user" class="btn btn-secondary">Sair</button>
+                </div>
+            </div>
+        </header>
+        
+        <main class="main-content">
+            <div class="welcome-card">
+                <h2>Bem-vindo ao Sistema!</h2>
+                <p>Você está logado como usuário.</p>
+            </div>
+        </main>
+    </div>
+
+    <!-- Área Administrativa -->
+    <div id="admin-screen" class="main-screen" style="display: none;">
+        <header class="main-header admin-header">
+            <div class="header-content">
+                <h1>⚙️ Painel Administrativo</h1>
+                <div class="user-info">
+                    <span id="admin-name-display"></span>
+                    <button id="logout-admin" class="btn btn-secondary">Sair</button>
+                </div>
+            </div>
+        </header>
+        
+        <main class="main-content">
+            <div class="admin-dashboard">
+                <h2>Gestão de Usuários</h2>
+                
+                <div class="stats-container">
+                    <div class="stat-card">
+                        <h3 id="total-users">0</h3>
+                        <p>Total de Usuários</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3 id="total-admins">0</h3>
+                        <p>Administradores</p>
+                    </div>
+                </div>
+                
+                <div class="users-table-container">
+                    <h3>Lista de Usuários</h3>
+                    <table id="users-table" class="users-table">
+                        <thead>
+                            <tr>
+                                <th>Nome</th>
+                                <th>E-mail</th>
+                                <th>Tipo</th>
+                                <th>Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody id="users-tbody">
+                            <tr>
+                                <td colspan="4" class="loading">Carregando usuários...</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+    </div>
+
     <script src="app.js"></script>
 </body>
 </html>
