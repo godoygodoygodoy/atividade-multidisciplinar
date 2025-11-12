@@ -1,16 +1,29 @@
-{
-  "name": "atividade-multidisciplinar",
-  "version": "1.0.0",
-  "description": "Projeto DevOps - Ciclo Completo de Desenvolvimento",
-  "main": "app.js",
-  "type": "module",
-  "scripts": {
-    "create-admin": "node scripts/create-admin.js",
-    "dev": "npx serve .",
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
+{{
+
+  "name": "sistema-autenticacao",  "name": "atividade-multidisciplinar",
+
+  "version": "1.0.0",  "version": "1.0.0",
+
+  "description": "Sistema de autenticação simples com login e cadastro",  "description": "Projeto DevOps - Ciclo Completo de Desenvolvimento",
+
+  "type": "module",  "main": "app.js",
+
+  "scripts": {  "type": "module",
+
+    "create-admin": "node scripts/create-admin.js"  "scripts": {
+
+  },    "create-admin": "node scripts/create-admin.js",
+
+  "dependencies": {    "dev": "npx serve .",
+
+    "bcryptjs": "^2.4.3",    "test": "echo \"Error: no test specified\" && exit 1"
+
+    "dotenv": "^16.4.5"  },
+
+  }  "repository": {
+
+}    "type": "git",
+
     "url": "git+https://github.com/godoygodoygodoy/atividade-multidisciplinar.git"
   },
   "keywords": [

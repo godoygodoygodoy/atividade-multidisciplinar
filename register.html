@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro - Sistema de Autenticação</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="auth-box">
+            <h1>Criar Conta</h1>
+            <p class="subtitle">Preencha os dados para se cadastrar</p>
+            
+            <form id="registerForm" class="auth-form">
+                <div class="form-group">
+                    <label for="name">Nome Completo</label>
+                    <input type="text" id="name" name="name" required placeholder="Seu nome completo">
+                </div>
+                
+                <div class="form-group">
+                    <label for="email">E-mail</label>
+                    <input type="email" id="email" name="email" required placeholder="seu@email.com">
+                </div>
+                
+                <div class="form-group">
+                    <label for="password">Senha</label>
+                    <input type="password" id="password" name="password" required placeholder="Mínimo 6 caracteres">
+                    <small>A senha deve ter no mínimo 6 caracteres</small>
+                </div>
+                
+                <div class="form-group">
+                    <label for="confirmPassword">Confirmar Senha</label>
+                    <input type="password" id="confirmPassword" name="confirmPassword" required placeholder="Digite a senha novamente">
+                </div>
+                
+                <div id="errorMessage" class="error-message"></div>
+                <div id="successMessage" class="success-message"></div>
+                
+                <button type="submit" class="btn btn-primary">Cadastrar</button>
+            </form>
+            
+            <div class="auth-footer">
+                <p>Já tem uma conta? <a href="index.html">Faça login aqui</a></p>
+            </div>
+        </div>
+    </div>
+    
+    <script src="js/register.js"></script>
+</body>
+</html>
