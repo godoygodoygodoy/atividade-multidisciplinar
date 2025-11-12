@@ -1,99 +1,93 @@
-/* =====================================================================
-   SCRIPT PARA CRIAR USUÁRIO ADMINISTRADOR
-   =====================================================================
-   
-   Execute este script para criar o primeiro usuário admin no MongoDB.
-   
-   Como usar:
-   1. Configure suas credenciais no .env
-   2. Execute: node scripts/create-admin.js
-===================================================================== */
-
 import bcrypt from 'bcryptjs';
+import dotenv from 'dotenv';
+
+dotenv.config();
+
+const MONGODB_DATA_API_URL = process.env.MONGODB_DATA_API_URL;
+const MONGODB_API_KEY = process.env.MONGODB_API_KEY;
+const MONGODB_DATA_SOURCE = process.env.MONGODB_DATA_SOURCE;
+const MONGODB_DATABASE = process.env.MONGODB_DATABASE;
 
 async function createAdmin() {
-    console.log('🚀 Criando usuário administrador...\n');
-
-    const API_URL = process.env.MONGODB_DATA_API_URL;
-    const API_KEY = process.env.MONGODB_API_KEY;
-    const DATA_SOURCE = process.env.MONGODB_DATA_SOURCE || 'Cluster0';
-    const DATABASE = process.env.MONGODB_DATABASE || 'devops_projeto';
-
-    if (!API_URL || !API_KEY) {
-        console.error('❌ Configure as variáveis MONGODB_DATA_API_URL e MONGODB_API_KEY no .env');
+    console.log('🔧 Criando usuário administrador...\n');
+    
+    if (!MONGODB_DATA_API_URL || !MONGODB_API_KEY) {
+        console.error('❌ Erro: Variáveis de ambiente do MongoDB não configuradas');
+        console.error('   Configure MONGODB_DATA_API_URL e MONGODB_API_KEY no arquivo .env');
         process.exit(1);
     }
-
-    // Dados do admin
-    const adminData = {
-        name: 'Administrador',
-        email: 'admin@sistema.com',
-        password: 'admin123', // Será hash
-        isAdmin: true,
-        createdAt: new Date().toISOString()
-    };
-
+    
+    const adminEmail = 'admin@sistema.com';
+    const adminPassword = 'admin123';
+    const adminName = 'Administrador';
+    
     try {
-        // Verificar se admin já existe
-        const checkResponse = await fetch(`${API_URL}/action/findOne`, {
+        // Verificar se já existe um admin
+        console.log('🔍 Verificando se o admin já existe...');
+        const checkResponse = await fetch(`${MONGODB_DATA_API_URL}/action/findOne`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'api-key': API_KEY
+                'api-key': MONGODB_API_KEY
             },
             body: JSON.stringify({
-                dataSource: DATA_SOURCE,
-                database: DATABASE,
+                dataSource: MONGODB_DATA_SOURCE,
+                database: MONGODB_DATABASE,
                 collection: 'users',
-                filter: { email: adminData.email }
+                filter: { email: adminEmail }
             })
         });
-
-        const checkResult = await checkResponse.json();
-
-        if (checkResult.document) {
-            console.log('⚠️  Usuário admin já existe!');
-            console.log('📧 E-mail:', adminData.email);
+        
+        const checkData = await checkResponse.json();
+        
+        if (checkData.document) {
+            console.log('ℹ️  Admin já existe no sistema');
+            console.log(`   E-mail: ${adminEmail}`);
+            console.log('   Use esse e-mail para fazer login');
             return;
         }
-
-        // Hash da senha
-        console.log('🔐 Gerando hash da senha...');
-        const hashedPassword = await bcrypt.hash(adminData.password, 10);
-
-        // Inserir admin
-        const insertResponse = await fetch(`${API_URL}/action/insertOne`, {
+        
+        // Criar hash da senha
+        console.log('🔒 Gerando hash da senha...');
+        const hashedPassword = await bcrypt.hash(adminPassword, 10);
+        
+        // Inserir admin no banco
+        console.log('💾 Salvando no banco de dados...');
+        const insertResponse = await fetch(`${MONGODB_DATA_API_URL}/action/insertOne`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'api-key': API_KEY
+                'api-key': MONGODB_API_KEY
             },
             body: JSON.stringify({
-                dataSource: DATA_SOURCE,
-                database: DATABASE,
+                dataSource: MONGODB_DATA_SOURCE,
+                database: MONGODB_DATABASE,
                 collection: 'users',
                 document: {
-                    ...adminData,
-                    password: hashedPassword
+                    name: adminName,
+                    email: adminEmail,
+                    password: hashedPassword,
+                    isAdmin: true,
+                    createdAt: new Date().toISOString()
                 }
             })
         });
-
-        const insertResult = await insertResponse.json();
-
-        if (insertResult.insertedId) {
-            console.log('\n✅ Usuário administrador criado com sucesso!\n');
-            console.log('📋 Credenciais:');
-            console.log('   E-mail:', adminData.email);
-            console.log('   Senha:', adminData.password);
-            console.log('\n⚠️  IMPORTANTE: Anote essas credenciais!');
-            console.log('   Use-as para fazer o primeiro login no sistema.');
+        
+        const insertData = await insertResponse.json();
+        
+        if (insertData.insertedId) {
+            console.log('\n✅ Admin criado com sucesso!\n');
+            console.log('📋 Credenciais de acesso:');
+            console.log(`   E-mail: ${adminEmail}`);
+            console.log(`   Senha: ${adminPassword}`);
+            console.log('\n⚠️  Altere a senha após o primeiro login!\n');
         } else {
-            throw new Error('Falha ao inserir admin');
+            console.error('❌ Erro ao criar admin');
+            console.error('   Resposta:', insertData);
         }
-
+        
     } catch (error) {
-        console.error('\n❌ Erro ao criar admin:', error.message);
+        console.error('❌ Erro ao criar admin:', error.message);
         process.exit(1);
     }
 }

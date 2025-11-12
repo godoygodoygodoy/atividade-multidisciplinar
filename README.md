@@ -1,77 +1,151 @@
-# 🚀 Projeto DevOps - Ciclo Completo de Desenvolvimento
+# Sistema de Autenticação# 🚀 Projeto DevOps - Ciclo Completo de Desenvolvimento
 
-## 📋 Visão Geral
 
-Este projeto demonstra um **ciclo completo de DevOps**, desde o planejamento até o deploy em produção, utilizando:
 
-- **Frontend**: HTML, CSS, JavaScript (Vanilla)
-- **POO**: Classes JavaScript (Restaurante, Prato, Artista, Música)
-- **Banco de Dados**: MongoDB Atlas (Data API)
-- **Segurança**: Variáveis de ambiente (.env)
-- **Versionamento**: Git Flow (main + staging)
-- **CI/CD**: GitHub + Vercel (Deploy Automatizado)
+Sistema simples de login e cadastro com painel administrativo.## 📋 Visão Geral
 
----
 
-## 🎯 Objetivos Pedagógicos
 
-### Disciplinas Abordadas:
-1. **Desenvolvimento Web**: HTML/CSS/JS moderno
-2. **POO**: 4 pilares (Encapsulamento, Abstração, Herança, Polimorfismo)
-3. **Banco de Dados**: MongoDB, NoSQL, API REST
-4. **Engenharia de Software**: Git Flow, Issues, Pull Requests, CI/CD
+## FuncionalidadesEste projeto demonstra um **ciclo completo de DevOps**, desde o planejamento até o deploy em produção, utilizando:
 
-### Foco:
-- Entender **processos profissionais** de desenvolvimento
-- Usar IA (GitHub Copilot) para **gerar código** e **explicar conceitos**
-- Dominar **DevOps** (Issues, Branches, Deploy)
 
----
 
-## 📁 Estrutura do Projeto
+- ✅ Login de usuários- **Frontend**: HTML, CSS, JavaScript (Vanilla)
 
-```
+- ✅ Cadastro de novos usuários- **POO**: Classes JavaScript (Restaurante, Prato, Artista, Música)
+
+- ✅ Dashboard personalizado- **Banco de Dados**: MongoDB Atlas (Data API)
+
+- ✅ Painel administrativo (para admins)- **Segurança**: Variáveis de ambiente (.env)
+
+- ✅ Gerenciamento de usuários- **Versionamento**: Git Flow (main + staging)
+
+- ✅ Senhas criptografadas com bcrypt- **CI/CD**: GitHub + Vercel (Deploy Automatizado)
+
+
+
+## Estrutura do Projeto---
+
+
+
+```## 🎯 Objetivos Pedagógicos
+
+├── index.html          # Página de login
+
+├── register.html       # Página de cadastro### Disciplinas Abordadas:
+
+├── dashboard.html      # Dashboard do usuário1. **Desenvolvimento Web**: HTML/CSS/JS moderno
+
+├── css/2. **POO**: 4 pilares (Encapsulamento, Abstração, Herança, Polimorfismo)
+
+│   └── style.css       # Estilos do sistema3. **Banco de Dados**: MongoDB, NoSQL, API REST
+
+├── js/4. **Engenharia de Software**: Git Flow, Issues, Pull Requests, CI/CD
+
+│   ├── login.js        # Lógica de login
+
+│   ├── register.js     # Lógica de cadastro### Foco:
+
+│   └── dashboard.js    # Lógica do dashboard- Entender **processos profissionais** de desenvolvimento
+
+├── api/- Usar IA (GitHub Copilot) para **gerar código** e **explicar conceitos**
+
+│   ├── auth.js         # API de autenticação- Dominar **DevOps** (Issues, Branches, Deploy)
+
+│   └── users.js        # API de gerenciamento de usuários
+
+└── scripts/---
+
+    └── create-admin.js # Script para criar admin inicial
+
+```## 📁 Estrutura do Projeto
+
+
+
+## Configuração```
+
 atividade/
-├── index.html          # Estrutura da página
+
+### 1. Variáveis de Ambiente├── index.html          # Estrutura da página
+
 ├── style.css           # Estilos (gradiente, cards, responsivo)
-├── app.js              # Lógica POO + Integração API
+
+Crie um arquivo `.env` na raiz do projeto com:├── app.js              # Lógica POO + Integração API
+
 ├── .env.example        # Exemplo de variáveis de ambiente
-├── .gitignore          # Arquivos que o Git deve ignorar
-├── README.md           # Este arquivo
-└── CONCEITOS.md        # Explicação detalhada para prova
-```
 
----
+```env├── .gitignore          # Arquivos que o Git deve ignorar
 
-## 🔧 Instalação Local
+MONGODB_DATA_API_URL=your_mongodb_data_api_url├── README.md           # Este arquivo
 
-### 1. Clone o Repositório
-```bash
-git clone https://github.com/seu-usuario/seu-repositorio.git
+MONGODB_API_KEY=your_mongodb_api_key└── CONCEITOS.md        # Explicação detalhada para prova
+
+MONGODB_DATA_SOURCE=Cluster0```
+
+MONGODB_DATABASE=devops_projeto
+
+```---
+
+
+
+### 2. Instalar Dependências## 🔧 Instalação Local
+
+
+
+```bash### 1. Clone o Repositório
+
+npm install```bash
+
+```git clone https://github.com/seu-usuario/seu-repositorio.git
+
 cd seu-repositorio
-```
 
-### 2. Configure Variáveis de Ambiente
-```bash
-# Copie o exemplo
+### 3. Criar Usuário Admin```
+
+
+
+```bash### 2. Configure Variáveis de Ambiente
+
+npm run create-admin```bash
+
+```# Copie o exemplo
+
 cp .env.example .env
 
-# Edite .env com suas credenciais do MongoDB
-# (Veja seção "Configurar MongoDB Atlas" abaixo)
+Credenciais padrão:
+
+- **E-mail:** admin@sistema.com# Edite .env com suas credenciais do MongoDB
+
+- **Senha:** admin123# (Veja seção "Configurar MongoDB Atlas" abaixo)
+
 ```
 
+## Deploy no Vercel
+
 ### 3. Abra no Navegador
-```bash
-# Opção 1: Abra index.html diretamente
+
+1. Conecte o repositório ao Vercel```bash
+
+2. Configure as variáveis de ambiente no painel do Vercel# Opção 1: Abra index.html diretamente
+
+3. Deploy automático a cada push
 
 # Opção 2: Use um servidor local (recomendado)
-# Com Python 3:
+
+## Tecnologias# Com Python 3:
+
 python -m http.server 8000
 
-# Com Node.js:
-npx serve
+- HTML5, CSS3, JavaScript
 
-# Com VS Code:
+- Node.js (Serverless Functions)# Com Node.js:
+
+- MongoDB Atlas (Data API)npx serve
+
+- bcryptjs (criptografia de senhas)
+
+- Vercel (hospedagem)# Com VS Code:
+
 # Instale extensão "Live Server" e clique em "Go Live"
 ```
 
