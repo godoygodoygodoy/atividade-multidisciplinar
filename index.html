@@ -1,190 +1,33 @@
-<!DOCTYPE html><!DOCTYPE html>
-
-<html lang="pt-BR"><html lang="pt-BR">
-
-<head><head>
-
-    <meta charset="UTF-8">    <meta charset="UTF-8">
-
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Login - Sistema de Autenticação</title>    <title>Sistema de Gestão - Login</title>
-
-    <link rel="stylesheet" href="css/style.css">    <link rel="stylesheet" href="style.css">
-
-</head></head>
-
-<body><body>
-
-    <div class="container">    <!-- Tela de Login -->
-
-        <div class="auth-box">    <div id="login-screen" class="auth-screen">
-
-            <h1>Bem-vindo</h1>        <div class="auth-container">
-
-            <p class="subtitle">Faça login para continuar</p>            <div class="auth-header">
-
-                            <h1>🔐 Sistema de Gestão</h1>
-
-            <form id="loginForm" class="auth-form">                <p>Faça login para acessar o sistema</p>
-
-                <div class="form-group">            </div>
-
-                    <label for="email">E-mail</label>            
-
-                    <input type="email" id="email" name="email" required placeholder="seu@email.com">            <form id="login-form" class="auth-form">
-
-                </div>                <div class="form-group">
-
-                                    <label for="login-email">E-mail:</label>
-
-                <div class="form-group">                    <input type="email" id="login-email" required placeholder="seu@email.com">
-
-                    <label for="password">Senha</label>                </div>
-
-                    <input type="password" id="password" name="password" required placeholder="••••••••">                
-
-                </div>                <div class="form-group">
-
-                                    <label for="login-password">Senha:</label>
-
-                <div id="errorMessage" class="error-message"></div>                    <input type="password" id="login-password" required placeholder="••••••••">
-
-                                </div>
-
-                <button type="submit" class="btn btn-primary">Entrar</button>                
-
-            </form>                <button type="submit" class="btn btn-primary">Entrar</button>
-
-                            
-
-            <div class="auth-footer">                <div class="auth-links">
-
-                <p>Não tem uma conta? <a href="register.html">Cadastre-se aqui</a></p>                    <p>Não tem conta? <a href="#" id="show-register">Cadastre-se</a></p>
-
-            </div>                </div>
-
-        </div>            </form>
-
-    </div>            
-
-                <div id="login-message" class="message"></div>
-
-    <script src="js/login.js"></script>        </div>
-
-</body>    </div>
-
-</html>
-
-    <!-- Tela de Cadastro -->
-    <div id="register-screen" class="auth-screen" style="display: none;">
-        <div class="auth-container">
-            <div class="auth-header">
-                <h1>📝 Criar Conta</h1>
-                <p>Preencha os dados para se cadastrar</p>
-            </div>
-            
-            <form id="register-form" class="auth-form">
-                <div class="form-group">
-                    <label for="register-name">Nome Completo:</label>
-                    <input type="text" id="register-name" required placeholder="Seu nome">
-                </div>
-                
-                <div class="form-group">
-                    <label for="register-email">E-mail:</label>
-                    <input type="email" id="register-email" required placeholder="seu@email.com">
-                </div>
-                
-                <div class="form-group">
-                    <label for="register-password">Senha:</label>
-                    <input type="password" id="register-password" required placeholder="Mínimo 6 caracteres">
-                </div>
-                
-                <div class="form-group">
-                    <label for="register-confirm">Confirmar Senha:</label>
-                    <input type="password" id="register-confirm" required placeholder="Digite a senha novamente">
-                </div>
-                
-                <button type="submit" class="btn btn-primary">Cadastrar</button>
-                
-                <div class="auth-links">
-                    <p>Já tem conta? <a href="#" id="show-login">Faça login</a></p>
-                </div>
-            </form>
-            
-            <div id="register-message" class="message"></div>
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login - Sistema de Autenticação</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <div class="container">
+    <div class="auth-box">
+      <h1>Bem-vindo</h1>
+      <p class="subtitle">Faça login para continuar</p>
+      <form id="loginForm" class="auth-form">
+        <div class="form-group">
+          <label for="email">E-mail</label>
+          <input type="email" id="email" name="email" required placeholder="seu@email.com" />
         </div>
+        <div class="form-group">
+          <label for="password">Senha</label>
+          <input type="password" id="password" name="password" required placeholder="••••••••" />
+        </div>
+        <div id="errorMessage" class="error-message"></div>
+        <button type="submit" class="btn btn-primary">Entrar</button>
+      </form>
+      <div class="auth-footer">
+        <p>Não tem uma conta? <a href="register.html">Cadastre-se aqui</a></p>
+      </div>
     </div>
-
-    <!-- Área do Usuário Normal -->
-    <div id="user-screen" class="main-screen" style="display: none;">
-        <header class="main-header">
-            <div class="header-content">
-                <h1>📊 Painel do Usuário</h1>
-                <div class="user-info">
-                    <span id="user-name-display"></span>
-                    <button id="logout-user" class="btn btn-secondary">Sair</button>
-                </div>
-            </div>
-        </header>
-        
-        <main class="main-content">
-            <div class="welcome-card">
-                <h2>Bem-vindo ao Sistema!</h2>
-                <p>Você está logado como usuário.</p>
-            </div>
-        </main>
-    </div>
-
-    <!-- Área Administrativa -->
-    <div id="admin-screen" class="main-screen" style="display: none;">
-        <header class="main-header admin-header">
-            <div class="header-content">
-                <h1>⚙️ Painel Administrativo</h1>
-                <div class="user-info">
-                    <span id="admin-name-display"></span>
-                    <button id="logout-admin" class="btn btn-secondary">Sair</button>
-                </div>
-            </div>
-        </header>
-        
-        <main class="main-content">
-            <div class="admin-dashboard">
-                <h2>Gestão de Usuários</h2>
-                
-                <div class="stats-container">
-                    <div class="stat-card">
-                        <h3 id="total-users">0</h3>
-                        <p>Total de Usuários</p>
-                    </div>
-                    <div class="stat-card">
-                        <h3 id="total-admins">0</h3>
-                        <p>Administradores</p>
-                    </div>
-                </div>
-                
-                <div class="users-table-container">
-                    <h3>Lista de Usuários</h3>
-                    <table id="users-table" class="users-table">
-                        <thead>
-                            <tr>
-                                <th>Nome</th>
-                                <th>E-mail</th>
-                                <th>Tipo</th>
-                                <th>Ações</th>
-                            </tr>
-                        </thead>
-                        <tbody id="users-tbody">
-                            <tr>
-                                <td colspan="4" class="loading">Carregando usuários...</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </main>
-    </div>
-
-    <script src="app.js"></script>
+  </div>
+  <script src="js/login.js"></script>
 </body>
 </html>

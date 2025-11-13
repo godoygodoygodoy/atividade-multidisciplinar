@@ -1,5 +1,20 @@
 import bcrypt from 'bcryptjs';
 
+// Função auxiliar para ler corpo JSON em função Node Vercel
+async function parseBody(req) {
+    return new Promise(resolve => {
+        let data = '';
+        req.on('data', chunk => { data += chunk; });
+        req.on('end', () => {
+            try {
+                resolve(JSON.parse(data || '{}'));
+            } catch {
+                resolve({});
+            }
+        });
+    });
+}
+
 export default async function handler(req, res) {
     // Configurar CORS
     res.setHeader('Access-Control-Allow-Origin', '*');
@@ -14,7 +29,7 @@ export default async function handler(req, res) {
         return res.status(405).json({ error: 'Método não permitido' });
     }
     
-    const { action, email, password, name } = req.body;
+    const { action, email, password, name } = await parseBody(req);
     
     // Configuração MongoDB
     const MONGODB_DATA_API_URL = process.env.MONGODB_DATA_API_URL;
