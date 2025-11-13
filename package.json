@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "description": "Projeto DevOps - Ciclo Completo de Desenvolvimento",
   "type": "module",
-  "main": "app.js",
   "scripts": {
     "create-admin": "node scripts/create-admin.js",
     "dev": "npx serve .",
